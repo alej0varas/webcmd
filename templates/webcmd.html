@@ -1,0 +1,41 @@
+<html>
+<body onload="load()">
+<head>
+<script type="text/javascript">
+  function load(){document.getElementById("cmd").focus();}
+</script>
+<div>
+<form action="." method="POST">
+<label for="cmd">Command</label>
+<input type="text" name="cmd" id="cmd" />
+<input value="ejecutar" type="submit" />
+</form>
+</div>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div>
+Stdin
+<ul>
+{% for r in stdout %}
+<li>{{ r }}</li>
+{% endfor %}
+</ul>
+</div>
+
+<div>
+Stderr
+<ul>
+{% for e in stderr %}
+<li>{{ e }}</li>
+{% endfor %}
+</ul>
+</div>
+</body>
+</html>
