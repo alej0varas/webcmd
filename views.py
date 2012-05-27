@@ -23,7 +23,11 @@ def webcmd(request):
             data["messages"].append("Comando no existe.")
 
 
+    # select mod, aka template name
+    mod = request.POST.get('mod', '')
+    template_name = mod + 'webcmd.html'
+    data['mod'] = mod
 
-    return render_to_response('webcmd.html',
+    return render_to_response(template_name,
                               data,
                               context_instance=RequestContext(request))
