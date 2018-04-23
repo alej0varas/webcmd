@@ -1,10 +1,11 @@
 # Django settings for sistema project.
 import os
 
-PROJDIR = os.path.abspath(os.path.curdir)
+PROJDIR = os.path.join(os.path.abspath(os.path.curdir), 'webcmd')
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+
+ALLOWED_HOSTS=['0.0.0.0', ]
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -51,14 +52,22 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '' # get one from http://www.miniwebtool.com/django-secret-key-generator/
+# get one from http://www.miniwebtool.com/django-secret-key-generator/
+SECRET_KEY = ''
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.load_template_source',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(PROJDIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages'], }, }, ]
+
+#TEMPLATE_CONTEXT_PROCESSORS = (
+#    'django.contrib.messages.context_processors.messages',
+#)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -67,18 +76,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'sistema.urls'
-
-TEMPLATE_DIRS = (
-    os.path.join(PROJDIR, 'templates'),
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
-
-#TEMPLATE_CONTEXT_PROCESSORS = (
-#    'django.contrib.messages.context_processors.messages',
-#)
+ROOT_URLCONF = 'webcmd.urls'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
